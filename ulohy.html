@@ -1,0 +1,254 @@
+```html
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Úlohy: Deformace tahem a tlakem (Widget)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                enableMenu: false
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
+        body { 
+            font-family: 'Outfit', sans-serif; 
+            margin: 0;
+            padding: 0;
+            background-color: transparent; /* Umožňuje splynutí s pozadím webu */
+        }
+        .solution-content { display: none; }
+        .solution-content.active { display: block; }
+        .math-step { overflow-x: auto; max-width: 100%; }
+        /* Skrytí scrollbaru pro čistší vzhled v iframe, pokud je potřeba */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    </style>
+</head>
+<body class="text-slate-900">
+
+    <div class="p-2 sm:p-4">
+        <!-- Kompaktní ovládací panel místo velkého záhlaví -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+            <div>
+                <h2 id="title-cs" class="text-lg font-bold text-blue-800">Deformace tahem a tlakem</h2>
+                <h2 id="title-fr" class="text-lg font-bold text-blue-800 hidden">Déformation par traction et compression</h2>
+            </div>
+            <button id="lang-toggle" onclick="toggleLanguage()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors flex items-center gap-2 shrink-0">
+                <span>🇨🇿 / 🇫🇷</span>
+                <span id="btn-lang-text">Français</span>
+            </button>
+        </div>
+
+        <!-- Úvodní text -->
+        <div class="mb-6 px-1">
+            <p id="intro-cs" class="text-slate-600 text-sm italic">
+                Sada 10 úloh s řešením zaměřená na normálové napětí a Hookův zákon.
+            </p>
+            <p id="intro-fr" class="text-slate-600 text-sm italic hidden">
+                Une série de 10 exercices avec solutions sur la contrainte normale et la loi de Hooke.
+            </p>
+        </div>
+
+        <div id="exercises-container" class="space-y-4"></div>
+    </div>
+
+    <script>
+        let currentLang = 'cs';
+
+        const exercises = [
+            {
+                id: 1,
+                cs: {
+                    q: "Ocelový drát o průřezu $2 \\, \\text{mm}^2$ je napínán silou $400 \\, \\text{N}$. Určete normálové napětí v drátu.",
+                    btn: "Zobrazit řešení",
+                    steps: [
+                        "Zápis: $S = 2 \\cdot 10^{-6} \\, \\text{m}^2$, $F = 400 \\, \\text{N}$.",
+                        "Vzorec pro normálové napětí: $\\sigma = \\frac{F}{S}$.",
+                        "Výpočet: $\\sigma = \\frac{400}{2 \\cdot 10^{-6}} = 200 \\cdot 10^6 \\, \\text{Pa} = 200 \\, \\text{MPa}$."
+                    ]
+                },
+                fr: {
+                    q: "Un fil d'acier de section $2 \\, \\text{mm}^2$ est tendu par une force de $400 \\, \\text{N}$. Déterminez la contrainte normale dans le fil.",
+                    btn: "Afficher la solution",
+                    steps: [
+                        "Données : $S = 2 \\cdot 10^{-6} \\, \\text{m}^2$, $F = 400 \\, \\text{N}$.",
+                        "Formule de la contrainte normale : $\\sigma = \\frac{F}{S}$.",
+                        "Calcul : $\\sigma = \\frac{400}{2 \\cdot 10^{-6}} = 200 \\cdot 10^6 \\, \\text{Pa} = 200 \\, \\text{MPa}$."
+                    ]
+                }
+            },
+            {
+                id: 2,
+                cs: {
+                    q: "Tyč o délce $2{,}5 \\, \\text{m}$ se po zatížení prodloužila o $5 \\, \\text{mm}$. Vypočtěte relativní prodloužení.",
+                    btn: "Zobrazit řešení",
+                    steps: [
+                        "Zápis: $l_0 = 2{,}5 \\, \\text{m}$, $\\Delta l = 0{,}005 \\, \\text{m}$.",
+                        "Vzorec pro relativní prodloužení: $\\varepsilon = \\frac{\\Delta l}{l_0}$.",
+                        "Výpočet: $\\varepsilon = \\frac{0{,}005}{2{,}5} = 0{,}002 = 0{,}2 \\, \%$."
+                    ]
+                },
+                fr: {
+                    q: "Une barre d'une longueur de $2{,}5 \\, \\text{m}$ s'allonge de $5 \\, \\text{mm}$ après avoir été chargée. Calculez l'allongement relatif.",
+                    btn: "Afficher la solution",
+                    steps: [
+                        "Données : $l_0 = 2{,}5 \\, \\text{m}$, $\\Delta l = 0{,}005 \\, \\text{m}$.",
+                        "Formule de l'allongement relatif : $\\varepsilon = \\frac{\\Delta l}{l_0}$.",
+                        "Calcul : $\\varepsilon = \\frac{0{,}005}{2{,}5} = 0{,}002 = 0{,}2 \\, \%$."
+                    ]
+                }
+            },
+            {
+                id: 3,
+                cs: {
+                    q: "Jak velké napětí vyvolá v hliníkové tyči ($E = 70 \\, \\text{GPa}$) relativní prodloužení $0{,}1 \\, \%$?",
+                    btn: "Zobrazit řešení",
+                    steps: [
+                        "Zápis: $E = 70 \\cdot 10^9 \\, \\text{Pa}$, $\\varepsilon = 0{,}001$.",
+                        "Hookův zákon: $\\sigma = E \\cdot \\varepsilon$.",
+                        "Výpočet: $\\sigma = 70 \\cdot 10^9 \\cdot 0{,}001 = 70 \\cdot 10^6 \\, \\text{Pa} = 70 \\, \\text{MPa}$."
+                    ]
+                },
+                fr: {
+                    q: "Quelle contrainte provoque un allongement relatif de $0{,}1 \\, \%$ dans une barre d'aluminium ($E = 70 \\, \\text{GPa}$) ?",
+                    btn: "Afficher la solution",
+                    steps: [
+                        "Données : $E = 70 \\cdot 10^9 \\, \\text{Pa}$, $\\varepsilon = 0{,}001$.",
+                        "Loi de Hooke : $\\sigma = E \\cdot \\varepsilon$.",
+                        "Calcul : $\\sigma = 70 \\cdot 10^9 \\cdot 0{,}001 = 70 \\cdot 10^6 \\, \\text{Pa} = 70 \\, \\text{MPa}$."
+                    ]
+                }
+            },
+            {
+                id: 4,
+                cs: {
+                    q: "Betonový pilíř o průřezu $0{,}2 \\, \\text{m}^2$ nese zatížení $400 \\, \\text{kN}$. Určete tlakové napětí v pilíři.",
+                    btn: "Zobrazit řešení",
+                    steps: [
+                        "Zápis: $S = 0{,}2 \\, \\text{m}^2$, $F = 400 \\cdot 10^3 \\, \\text{N}$.",
+                        "Vzorec: $\\sigma = \\frac{F}{S}$.",
+                        "Výpočet: $\\sigma = \\frac{400000}{0{,}2} = 2 \\cdot 10^6 \\, \\text{Pa} = 2 \\, \\text{MPa}$."
+                    ]
+                },
+                fr: {
+                    q: "Un pilier en béton de section $0{,}2 \\, \\text{m}^2$ supporte une charge de $400 \\, \\text{kN}$. Déterminez la contrainte de compression dans le pilier.",
+                    btn: "Afficher la solution",
+                    steps: [
+                        "Données : $S = 0{,}2 \\, \\text{m}^2$, $F = 400 \\cdot 10^3 \\, \\text{N}$.",
+                        "Formule : $\\sigma = \\frac{F}{S}$.",
+                        "Calcul : $\\frac{400000}{0{,}2} = 2 \\cdot 10^6 \\, \\text{Pa} = 2 \\, \\text{MPa}$."
+                    ]
+                }
+            },
+            {
+                id: 5,
+                cs: {
+                    q: "Ocelové lano ($E = 210 \\, \\text{GPa}$) má délku $20 \\, \\text{m}$. O kolik se prodlouží, působí-li v něm napětí $105 \\, \\text{MPa}$?",
+                    btn: "Zobrazit řešení",
+                    steps: [
+                        "Zápis: $E = 210 \\cdot 10^9 \\, \\text{Pa}$, $l_0 = 20 \\, \\text{m}$, $\\sigma = 105 \\cdot 10^6 \\, \\text{Pa}$.",
+                        "Vztah: $\\Delta l = \\frac{\\sigma \\cdot l_0}{E}$.",
+                        "Výpočet: $\\Delta l = \\frac{105 \\cdot 10^6 \\cdot 20}{210 \\cdot 10^9} = 0{,}01 \\, \\text{m} = 1 \\, \\text{cm}$."
+                    ]
+                },
+                fr: {
+                    q: "Un câble d'acier ($E = 210 \\, \\text{GPa}$) mesure $20 \\, \\text{m}$. De combien s'allongera-t-il si une contrainte de $105 \\, \\text{MPa}$ est exercée ?",
+                    btn: "Afficher la solution",
+                    steps: [
+                        "Données : $E = 210 \\cdot 10^9 \\, \\text{Pa}$, $l_0 = 20 \\, \\text{m}$, $\\sigma = 105 \\cdot 10^6 \\, \\text{Pa}$.",
+                        "Relation : $\\Delta l = \\frac{\\sigma \\cdot l_0}{E}$.",
+                        "Calcul : $\\Delta l = 0{,}01 \\, \\text{m} = 1 \\, \\text{cm}$."
+                    ]
+                }
+            }
+        ];
+
+        function renderExercises() {
+            const container = document.getElementById('exercises-container');
+            if (!container) return;
+            container.innerHTML = '';
+            
+            exercises.forEach(ex => {
+                const data = ex[currentLang];
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-lg border border-slate-200 overflow-hidden';
+                
+                card.innerHTML = `
+                    <div class="p-4">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                                ${currentLang === 'cs' ? 'Úloha' : 'Exercice'} ${ex.id}
+                            </span>
+                        </div>
+                        <div class="text-base leading-snug mb-3 math-step">${data.q}</div>
+                        <button onclick="toggleSolution(${ex.id})" class="text-blue-600 font-semibold flex items-center gap-1 hover:text-blue-800 text-sm transition-colors">
+                            <svg class="w-4 h-4 transition-transform" id="arrow-${ex.id}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            ${data.btn}
+                        </button>
+                        <div id="solution-${ex.id}" class="solution-content mt-3 pt-3 border-t border-slate-50">
+                            <ul class="space-y-2">
+                                ${data.steps.map((step, idx) => `
+                                    <li class="flex gap-2 items-start text-sm">
+                                        <span class="text-blue-500 font-bold shrink-0">${idx + 1}.</span>
+                                        <div class="text-slate-600 math-step">${step}</div>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+            
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise();
+            }
+        }
+
+        function toggleSolution(id) {
+            const sol = document.getElementById(`solution-${id}`);
+            const arrow = document.getElementById(`arrow-${id}`);
+            if (sol) sol.classList.toggle('active');
+            if (arrow) arrow.style.transform = sol.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'cs' ? 'fr' : 'cs';
+            
+            const elements = {
+                'title-cs': currentLang !== 'cs',
+                'title-fr': currentLang !== 'fr',
+                'intro-cs': currentLang !== 'cs',
+                'intro-fr': currentLang !== 'fr'
+            };
+
+            for (const [id, shouldHide] of Object.entries(elements)) {
+                const el = document.getElementById(id);
+                if (el) el.classList.toggle('hidden', shouldHide);
+            }
+            
+            const btnText = document.getElementById('btn-lang-text');
+            if (btnText) btnText.innerText = currentLang === 'cs' ? 'Français' : 'Čeština';
+            
+            renderExercises();
+        }
+
+        document.addEventListener('DOMContentLoaded', renderExercises);
+    </script>
+</body>
+</html>
+
+```
+
