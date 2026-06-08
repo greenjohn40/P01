@@ -67,7 +67,7 @@
     <script>
         let currentLang = 'cs';
 
-        const exercises = [
+                const exercises = [
             {
                 id: 1,
                 cs: {
@@ -148,7 +148,7 @@
                     steps: [
                         "Données : $S = 0{,}2 \\, \\text{m}^2$, $F = 400 \\cdot 10^3 \\, \\text{N}$.",
                         "Formule : $\\sigma = \\frac{F}{S}$.",
-                        "Calcul : $\\frac{400000}{0{,}2} = 2 \\cdot 10^6 \\, \\text{Pa} = 2 \\, \\text{MPa}$."
+                        "Calcul : $\\sigma = \\frac{400000}{0{,}2} = 2 \\cdot 10^6 \\, \\text{Pa} = 2 \\, \\text{MPa}$."
                     ]
                 }
             },
@@ -169,11 +169,124 @@
                     steps: [
                         "Données : $E = 210 \\cdot 10^9 \\, \\text{Pa}$, $l_0 = 20 \\, \\text{m}$, $\\sigma = 105 \\cdot 10^6 \\, \\text{Pa}$.",
                         "Relation : $\\Delta l = \\frac{\\sigma \\cdot l_0}{E}$.",
-                        "Calcul : $\\Delta l = 0{,}01 \\, \\text{m} = 1 \\, \\text{cm}$."
+                        "Calcul : $\\Delta l = \\frac{105 \\cdot 10^6 \\cdot 20}{210 \\cdot 10^9} = 0{,}01 \\, \\text{m} = 1 \\, \\text{cm}$."
+                    ]
+                }
+            },
+            {
+                id: 6,
+                cs: {
+                    q: "Jaký musí být minimální průměr ocelového drátu, aby při tahu silou $3{,}14 \\, \\text{kN}$ normálové napětí nepřekročilo $100 \\, \\text{MPa}$?",
+                    btn: "Zobrazit řešení",
+                    steps: [
+                        "Zápis: $F = 3140 \\, \\text{N}$, $\\sigma = 100 \\cdot 10^6 \\, \\text{Pa}$.",
+                        "Vzorec pro plochu kruhového průřezu: $S = \\frac{F}{\\sigma} = \\frac{\\pi \\cdot d^2}{4}$.",
+                        "Vyjádření průměru: $d = \\sqrt{\\frac{4F}{\\pi \\cdot \\sigma}}$.",
+                        "Výpočet: $d = \\sqrt{\\frac{4 \\cdot 3140}{3{,}1416 \\cdot 100 \\cdot 10^6}} \\approx \\sqrt{4 \\cdot 10^{-5}} \\, \\text{m} \\approx 0{,}00632 \\, \\text{m} = 6{,}32 \\, \\text{mm}$."
+                    ]
+                },
+                fr: {
+                    q: "Quel doit être le diamètre minimal d'un fil d'acier pour que, sous une force de traction de $3{,}14 \\, \\text{kN}$, la contrainte normale ne dépasse pas $100 \\, \\text{MPa}$ ?",
+                    btn: "Afficher la solution",
+                    steps: [
+                        "Données : $F = 3140 \\, \\text{N}$, $\\sigma = 100 \\cdot 10^6 \\, \\text{Pa}$.",
+                        "Formule de la section circulaire : $S = \\frac{F}{\\sigma} = \\frac{\\pi \\cdot d^2}{4}$.",
+                        "Expression du diamètre : $d = \\sqrt{\\frac{4F}{\\pi \\cdot \\sigma}}$.",
+                        "Calcul : $d = \\sqrt{\\frac{4 \\cdot 3140}{3{,}1416 \\cdot 100 \\cdot 10^6}} \\approx 0{,}00632 \\, \\text{m} = 6{,}32 \\, \\text{mm}$."
+                    ]
+                }
+            },
+            {
+                id: 7,
+                cs: {
+                    q: "Měděný drát ($E = 120 \\, \\text{GPa}$) o délce $5 \\, \\text{m}$ a průřezu $1 \\, \\text{mm}^2$ je zatížen silou $60 \\, \\text{N}$. Vypočtěte jeho absolutní prodloužení $\\Delta l$.",
+                    btn: "Zobrazit řešení",
+                    steps: [
+                        "Zápis: $E = 120 \\cdot 10^9 \\, \\text{Pa}$, $l_0 = 5 \\, \\text{m}$, $S = 1 \\cdot 10^{-6} \\, \\text{m}^2$, $F = 60 \\, \\text{N}$.",
+                        "Vzorec z Hookova zákona: $\\Delta l = \\frac{F \\cdot l_0}{S \\cdot E}$.",
+                        "Výpočet: $\\Delta l = \\frac{60 \\cdot 5}{1 \\cdot 10^{-6} \\cdot 120 \\cdot 10^9} = \\frac{300}{120000} = 0{,}0025 \\, \\text{m} = 2{,}5 \\, \\text{mm}$."
+                    ]
+                },
+                fr: {
+                    q: "Un fil de cuivre ($E = 120 \\, \\text{GPa}$) d'une longueur de $5 \\, \\text{m}$ et de section $1 \\, \\text{mm}^2$ est chargé par une force de $60 \\, \\text{N}$. Calculez son allongement absolu $\\Delta l$.",
+                    btn: "Afficher la solution",
+                    steps: [
+                        "Données : $E = 120 \\cdot 10^9 \\, \\text{Pa}$, $l_0 = 5 \\, \\text{m}$, $S = 1 \\cdot 10^{-6} \\, \\text{m}^2$, $F = 60 \\, \\text{N}$.",
+                        "Formule issue de la loi de Hooke : $\\Delta l = \\frac{F \\cdot l_0}{S \\cdot E}$.",
+                        "Calcul : $\\Delta l = \\frac{60 \\cdot 5}{1 \\cdot 10^{-6} \\cdot 120 \\cdot 10^9} = 0{,}0025 \\, \\text{m} = 2{,}5 \\, \\text{mm}$."
+                    ]
+                }
+            },
+            {
+                id: 8,
+                cs: {
+                    q: "Mez pevnosti v tahu pro daný materiál je $\\sigma_{\\text{Pt}} = 420 \\, \\text{MPa}$. Vypočtěte dovolené napětí $\\sigma_{\\text{dov}}$, je-li požadována bezpečnost k mezi pevnosti $k = 3$.",
+                    btn: "Zobrazit řešení",
+                    steps: [
+                        "Zápis: $\\sigma_{\\text{Pt}} = 420 \\, \\text{MPa}$, $k = 3$.",
+                        "Vzorec pro dovolené napětí s koeficientem bezpečnosti: $\\sigma_{\\text{dov}} = \\frac{\\sigma_{\\text{Pt}}}{k}$.",
+                        "Výpočet: $\\sigma_{\\text{dov}} = \\frac{420}{3} = 140 \\, \\text{MPa}$."
+                    ]
+                },
+                fr: {
+                    q: "La résistance à la traction d'un matériau est $\\sigma_{\\text{Pt}} = 420 \\, \\text{MPa}$. Calculez la contrainte admissible $\\sigma_{\\text{dov}}$ si un coefficient de sécurité $k = 3$ est requis.",
+                    btn: "Afficher la solution",
+                    steps: [
+                        "Données : $\\sigma_{\\text{Pt}} = 420 \\, \\text{MPa}$, $k = 3$.",
+                        "Formule de la contrainte admissible : $\\sigma_{\\text{dov}} = \\frac{\\sigma_{\\text{Pt}}}{k}$.",
+                        "Calcul : $\\sigma_{\\text{dov}} = \\frac{420}{3} = 140 \\, \\text{MPa}$."
+                    ]
+                }
+            },
+            {
+                id: 9,
+                cs: {
+                    q: "Ocelový nosník o průřezu $4000 \\, \\text{mm}^2$ je namáhán tlakovou silou. Jaká je maximální dovolená síla $F_{\\text{max}}$, je-li dovolené napětí v tlaku $\\sigma_{\\text{dov}} = 120 \\, \\text{MPa}$?",
+                    btn: "Zobrazit řešení",
+                    steps: [
+                        "Zápis: $S = 4000 \\cdot 10^{-6} \\, \\text{m}^2 = 4 \\cdot 10^{-3} \\, \\text{m}^2$, $\\sigma_{\\text{dov}} = 120 \\cdot 10^6 \\, \\text{Pa}$.",
+                        "Vzorec pro sílu z normálového napětí: $F_{\\text{max}} = \\sigma_{\\text{dov}} \\cdot S$.",
+                        "Výpočet: $F_{\\text{max}} = 120 \\cdot 10^6 \\cdot 4 \\cdot 10^{-3} = 480 \\cdot 10^3 \\, \\text{N} = 480 \\, \\text{kN}$."
+                    ]
+                },
+                fr: {
+                    q: "Une poutre en acier de section $4000 \\, \\text{mm}^2$ est soumise à une force de compression. Quelle est la force maximale admissible $F_{\\text{max}}$ si la contrainte de compression admissible est $\\sigma_{\\text{dov}} = 120 \\, \\text{MPa}$ ?",
+                    btn: "Afficher la solution",
+                    steps: [
+                        "Données : $S = 4000 \\cdot 10^{-6} \\, \\text{m}^2$, $\\sigma_{\\text{dov}} = 120 \\cdot 10^6 \\, \\text{Pa}$.",
+                        "Formule de la force maximale : $F_{\\text{max}} = \\sigma_{\\text{dov}} \\cdot S$.",
+                        "Calcul : $F_{\\text{max}} = 120 \\cdot 10^6 \\cdot 4 \\cdot 10^{-3} = 480 \\cdot 10^3 \\, \\text{N} = 480 \\, \\text{kN}$."
+                    ]
+                }
+            },
+            {
+                id: 10,
+                cs: {
+                    q: "Tyč z konstrukční oceli ($E = 210 \\, \\text{GPa}$) o délce $1 \\, \\text{m}$ je pevně vetknuta mezi dvě tuhé stěny. O kolik vzroste tlakové napětí v tyči, pokud se zahřeje o $\\Delta T = 20 \\, ^\\circ\\text{C}$? (Součinitel teplotní roztažnosti je $\\alpha = 12 \\cdot 10^{-6} \\, \\text{K}^{-1}$).",
+                    btn: "Zobrazit řešení",
+                    steps: [
+                        "Zápis: $E = 210 \\cdot 10^9 \\, \\text{Pa}$, $\\alpha = 12 \\cdot 10^{-6} \\, \\text{K}^{-1}$, $\\Delta T = 20 \\, \\text{K}$.",
+                        "Teplotní deformace (pokud by tyč byla volná): $\\varepsilon_{\\text{t}} = \\alpha \\cdot \\Delta T$.",
+                        "Vzorec pro tepelné napětí ve vetknuté tyči: $\\sigma = E \\cdot \\varepsilon_{\\text{t}} = E \\cdot \\alpha \\cdot \\Delta T$.",
+                        "Výpočet: $\\sigma = 210 \\cdot 10^9 \\cdot 12 \\cdot 10^{-6} \\cdot 20 = 50{,}4 \\cdot 10^6 \\, \\text{Pa} = 50{,}4 \\, \\text{MPa}$."
+                    ]
+                },
+                fr: {
+                    q: "Une barre d'acier de construction ($E = 210 \\, \\text{GPa}$) d'une longueur de $1 \\, \\text{m}$ est encastrée de manière rigide entre deux murs. De combien la contrainte de compression augmente-t-elle si la température augmente de $\\Delta T = 20 \\, ^\\circ\\text{C}$ ? (Le coefficient de dilatation thermique est $\\alpha = 12 \\cdot 10^{-6} \\, \\text{K}^{-1}$).",
+                    btn: "Afficher la solution",
+                    steps: [
+                        "Données : $E = 210 \\cdot 10^9 \\, \\text{Pa}$, $\\alpha = 12 \\cdot 10^{-6} \\, \\text{K}^{-1}$, $\\Delta T = 20 \\, \\text{K}$.",
+                        "Déformation thermique (si la barre était libre) : $\\varepsilon_{\\text{t}} = \\alpha \\cdot \\Delta T$.",
+                        "Formule de la contrainte thermique : $\\sigma = E \\cdot \\alpha \\cdot \\Delta T$.",
+                        "Calcul : $\\sigma = 210 \\cdot 10^9 \\cdot 12 \\cdot 10^{-6} \\cdot 20 = 50{,}4 \\cdot 10^6 \\, \\text{Pa} = 50{,}4 \\, \\text{MPa}$."
                     ]
                 }
             }
         ];
+        
+
+        
+        
 
         function renderExercises() {
             const container = document.getElementById('exercises-container');
